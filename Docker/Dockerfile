@@ -153,8 +153,7 @@ RUN pip install scipy==1.10.1 && pip cache purge
 
 RUN cd /root/ && git clone git@github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules && \
     cd /root/SimplerEnv/ManiSkill2_real2sim && pip install -e . && \
-    cd /root/SimplerEnv && pip install -e .
-RUN cd /root/SimplerEnv && pip install -r requirements_full_install.txt
+    cd /root/SimplerEnv && pip install -e . && pip install pip install git+https://github.com/nathanrooy/simulated-annealing
 
 RUN cd /usr/local/bin/ && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
