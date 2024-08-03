@@ -1,0 +1,11 @@
+#!/bin/bash
+GIT="cd /root/openvla && git pull origin depth && cd /root/SimplerEnv && git pull"
+CKPT_PATH_1="/ariesdv0/zhanling/openvla-logs/prism-dinosiglip-224px+mx-rt_1_16-replace-dino/checkpoints/step-010000-epoch-01-loss=0.3397.pt"
+RUN_1="bash scripts/drawer_eval.sh opendvla ${CKPT_PATH_1}"
+CKPT_PATH_2="/ariesdv0/zhanling/openvla-logs/prism-dinosiglip-224px+mx-rt_1_16_depth_channel_concat/checkpoints/step-007500-epoch-01-loss=0.0753.pt"
+RUN_2="bash scripts/drawer_eval.sh opendvla ${CKPT_PATH_2}"
+RUN_3="bash scripts/drawer_eval.sh openvla None"
+JOB="opendvla-eval"
+aries run ag-${JOB}-0 -j 1 agopalkr/openvla -- bash -c "ln -s /ariesdv0/zhanling/huggingface /root/.cache/huggingface &&  && nvidia-smi && ls -la . && ${RUN_1} && python calculate_task_accuracy.py"
+#aries run ag-${JOB}-1 -j 1 agopalkr/openvla -- bash -c "ln -s /ariesdv0/zhanling/huggingface /root/.cache/huggingface && cd /root/SimplerEnv/openvla && git pull origin depth && cd /root/SimplerEnv && git pull && nvidia-smi && ls -la . && ${RUN_2} && python calculate_task_accuracy.py"
+#aries run ag-${JOB}-2 -j 1 agopalkr/openvla -- bash -c "ln -s /ariesdv0/zhanling/huggingface /root/.cache/huggingface && cd /root/SimplerEnv/openvla && git pull origin depth && cd /root/SimplerEnv && git pull && nvidia-smi && ls -la . && ${RUN_3} && python calculate_task_accuracy.py"
