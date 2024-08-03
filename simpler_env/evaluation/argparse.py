@@ -20,6 +20,8 @@ def get_args():
         default="rt1",
         help="Policy model type; e.g., 'rt1', 'octo-base', 'octo-small'",
     )
+    parser.add_argument("--use-depth-anything", action="store_true", help="Use depth anything for depth map generation")
+    parser.add_argument("--da-ckpt", type=str, default="/ariesdv0/zhanling/checkpoints/")
     parser.add_argument(
         "--policy-setup",
         type=str,
@@ -111,7 +113,7 @@ def get_args():
         "is allowed.",
     )
     parser.add_argument("--logging-dir", type=str, default="./results")
-    parser.add_argument("--tf-memory-limit", type=int, default=3072, help="Tensorflow memory limit")
+    parser.add_argument("--tf-memory-limit", type=int, default=3072 * 4, help="Tensorflow memory limit")
     parser.add_argument("--octo-init-rng", type=int, default=0, help="Octo init rng seed")
 
     args = parser.parse_args()

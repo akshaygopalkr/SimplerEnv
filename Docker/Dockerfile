@@ -143,12 +143,13 @@ RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 # Add GitHub's SSH key to known hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-RUN cd /root/ && \
-    git clone git@github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules
+RUN cd /root/ && git clone -b depth git@github.com:lz1oceani/openvla.git
+RUN cd /root/ && git clone
 
-RUN cd /root/SimplerEnv/openvla && pip install -e .
+RUN cd /root/openvla && pip install -e .
 RUN pip install scipy==1.10.1 && pip cache purge
 
+RUN cd /root/ && git clone git+https://github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules
 RUN cd /root/SimplerEnv/ManiSkill2_real2sim && pip install -e . && \
     cd /root/SimplerEnv && pip install -e . \
 RUN cd /root/SimplerEnv && pip install -r requirements_full_install.txt
