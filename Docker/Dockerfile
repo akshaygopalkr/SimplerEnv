@@ -155,8 +155,6 @@ RUN cd /root/ && git clone git@github.com:akshaygopalkr/SimplerEnv.git --recurse
     cd /root/SimplerEnv/ManiSkill2_real2sim && pip install -e . && \
     cd /root/SimplerEnv && pip install -e .
 RUN cd /root/SimplerEnv && pip install -r requirements_full_install.txt
-RUN pip install flash_attn exllamav2 transformers -U
-RUN pip install git+https://github.com/nathanrooy/simulated-annealing
 
 RUN cd /usr/local/bin/ && curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
