@@ -53,6 +53,8 @@ RUN apt-get update > /dev/null && \
     freeglut3-dev \
     mesa-utils \
     vulkan-tools \
+    libvulkan1 \
+    libglvnd-dev \
     libvulkan-dev \
     libglfw3-dev \
     gcc \
@@ -86,8 +88,10 @@ RUN apt-get update > /dev/null && \
     xauth libibverbs* librdma* libibmad* libibumad* ibverbs-utils rdmacm-utils infiniband-diags perftest librdmacm-dev libibverbs-dev numactl libnuma-dev libnl-3-200 libnl-route-3-200 libnl-route-3-dev libnl-utils ibutils > /dev/null && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt-get install libvulkan1 libglvnd-dev
-RUN ls /usr/share/vulkan/ && ls /usr/share/glvnd/egl_vendor.d/ && ls /etc/vulkan/implicit_layer.d/
+# https://github.com/haosulab/ManiSkill/issues/9
+COPY nvidia_icd.json /usr/share/vulkan/icd.d/nvidia_icd.json
+COPY nvidia_layers.json /etc/vulkan/implicit_layer.d/nvidia_layers.json
+COPY 10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 RUN cd /root && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-478.0.0-linux-x86_64.tar.gz && \
     tar -xf google-cloud-cli-478.0.0-linux-x86_64.tar.gz && rm google-cloud-cli-478.0.0-linux-x86_64.tar.gz && \
@@ -144,14 +148,12 @@ RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 RUN cd /root/ && git clone -b depth git@github.com:lz1oceani/openvla.git
-RUN cd /root/ && git clone
-
 RUN cd /root/openvla && pip install -e .
 RUN pip install scipy==1.10.1 && pip cache purge
 
-RUN cd /root/ && git clone git+https://github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules
-RUN cd /root/SimplerEnv/ManiSkill2_real2sim && pip install -e . && \
-    cd /root/SimplerEnv && pip install -e . \
+RUN cd /root/ && git clone git@github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules && \
+    cd /root/SimplerEnv/ManiSkill2_real2sim && pip install -e . && \
+    cd /root/SimplerEnv && pip install -e .
 RUN cd /root/SimplerEnv && pip install -r requirements_full_install.txt
 RUN pip install flash_attn exllamav2 transformers -U
 RUN pip install git+https://github.com/nathanrooy/simulated-annealing
@@ -173,5 +175,5 @@ RUN echo "NUMEXPR_MAX_THREADS=64" >> ~/.bashrc
 RUN echo "NCCL_NET=IB" >> ~/.bashrc
 RUN echo "export PATH=$PATH:/root/google-cloud-sdk/bin" >> ~/.bashrc
 
-RUN cd /root/SimplerEnv/openvla && rm -rf data && ln -s /ariesdv0/zhanling/oxe-data-converted ./data && ln -s /ariesdv0/zhanling/openvla-logs ./logs && ln -s /ariesdv0/zhanling/huggingface/token ./hf-token
+RUN cd /root/openvla && rm -rf data && ln -s /ariesdv0/zhanling/oxe-data-converted ./data && ln -s /ariesdv0/zhanling/openvla-logs ./logs && ln -s /ariesdv0/zhanling/huggingface/token ./hf-token
 RUN cd /root/SimplerEnv && ln -s /ariesdv0/zhanling/simpler_env_results ./results
