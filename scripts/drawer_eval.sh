@@ -1,5 +1,5 @@
 #!/bin/bash
-pip install "flash-attn==2.5.5" --no-build-isolation
+pip install flash_attn -U
 pip install git+https://github.com/nathanrooy/simulated-annealing
 EXTRA_ARGS="--enable-raytracing --additional-env-build-kwargs station_name=mk_station_recolor light_mode=simple disable_bad_material=True"
 model_type=$1
