@@ -1,3 +1,10 @@
 [submodule "ManiSkill2_real2sim"]
 	path = ManiSkill2_real2sim
 	url = https://github.com/simpler-env/ManiSkill2_real2sim
+[submodule "openvla"]
+	path = openvla
+	url = https://github.com/lz1oceani/openvla.git
+	branch = depth
+[submodule "simpler_env/Depth_Anything_V2"]
+	path = simpler_env/Depth_Anything_V2
+	url = https://github.com/akshaygopalkr/Depth-Anything-V2.git
