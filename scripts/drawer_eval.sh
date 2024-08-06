@@ -1,5 +1,7 @@
 #!/bin/bash
 pip install mediapy==1.2.0
+pip install protobuf==3.19.00
+pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable
 EXTRA_ARGS="--enable-raytracing --additional-env-build-kwargs station_name=mk_station_recolor light_mode=simple disable_bad_material=True"
 model_type=$1
 checkpoint_path=$2
