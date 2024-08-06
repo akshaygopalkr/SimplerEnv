@@ -32,7 +32,7 @@ class OPENDVLAInference:
         device = torch.device("cuda")
 
         # Load a pretrained D-VLM (either local path, or ID to auto-download from the HF Hub)
-        self.policy = load_dvla(model_id_or_path, hf_token=hf_token).to(device, dtype=torch.bfloat16)
+        self.policy = load_dvla(model_id_or_path, hf_token=hf_token).to(device)
         self.vlm_features = []
         self.feats = []
         self.image_width = image_width
