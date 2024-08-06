@@ -5,10 +5,10 @@ import tensorflow as tf
 
 from simpler_env.evaluation.argparse import get_args
 from simpler_env.evaluation.maniskill2_evaluator import maniskill2_evaluator
-from simpler_env.policies.octo.octo_server_model import OctoServerInference
+# from simpler_env.policies.octo.octo_server_model import OctoServerInference
 from simpler_env.policies.openvla.openvla_model import OPENVLAInference
 from simpler_env.policies.openvla.opendvla_model import OPENDVLAInference
-from simpler_env.policies.rt1.rt1_model import RT1Inference
+# from simpler_env.policies.rt1.rt1_model import RT1Inference
 from Depth_Anything_V2.metric_depth.depth_anything_v2.dpt import DepthAnythingV2
 import torch
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -34,31 +34,31 @@ if __name__ == "__main__":
             [tf.config.LogicalDeviceConfiguration(memory_limit=args.tf_memory_limit)],
         )
 
-    # policy model creation; update this if you are using a new policy model
-    if args.policy_model == "rt1":
-        assert args.ckpt_path is not None
-        model = RT1Inference(
-            saved_model_path=args.ckpt_path,
-            policy_setup=args.policy_setup,
-            action_scale=args.action_scale,
-        )
-    elif "octo" in args.policy_model:
-        if args.ckpt_path is None or args.ckpt_path == "None":
-            args.ckpt_path = args.policy_model
-        if "server" in args.policy_model:
-            model = OctoServerInference(
-                model_type=args.ckpt_path,
-                policy_setup=args.policy_setup,
-                action_scale=args.action_scale,
-            )
-        else:
-            model = OctoInference(
-                model_type=args.ckpt_path,
-                policy_setup=args.policy_setup,
-                init_rng=args.octo_init_rng,
-                action_scale=args.action_scale,
-            )
-    elif "openvla" in args.policy_model:
+    # # policy model creation; update this if you are using a new policy model
+    # if args.policy_model == "rt1":
+    #     assert args.ckpt_path is not None
+    #     model = RT1Inference(
+    #         saved_model_path=args.ckpt_path,
+    #         policy_setup=args.policy_setup,
+    #         action_scale=args.action_scale,
+    #     )
+    # elif "octo" in args.policy_model:
+    #     if args.ckpt_path is None or args.ckpt_path == "None":
+    #         args.ckpt_path = args.policy_model
+    #     if "server" in args.policy_model:
+    #         model = OctoServerInference(
+    #             model_type=args.ckpt_path,
+    #             policy_setup=args.policy_setup,
+    #             action_scale=args.action_scale,
+    #         )
+    #     else:
+    #         model = OctoInference(
+    #             model_type=args.ckpt_path,
+    #             policy_setup=args.policy_setup,
+    #             init_rng=args.octo_init_rng,
+    #             action_scale=args.action_scale,
+    #         )
+    if "openvla" in args.policy_model:
         model = OPENVLAInference(policy_setup=args.policy_setup)
     elif "opendvla" in args.policy_model:
         model = OPENDVLAInference(model_id_or_path=args.ckpt_path,
