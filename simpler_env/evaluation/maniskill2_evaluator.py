@@ -319,7 +319,6 @@ def depth_run_maniskill2_eval_single_episode(
     print(task_description)
 
     # Initialize logging
-    print('getting image and epth from observation....')
     image, depth = get_image_and_depth_from_maniskill2_obs_dict(env, obs, camera_name=obs_camera_name, depth_model=depth_model)
     images = [image]
     predicted_actions = []
@@ -335,7 +334,6 @@ def depth_run_maniskill2_eval_single_episode(
     # Step the environment
     while not (predicted_terminated or truncated):
         # step the model; "raw_action" is raw model action output; "action" is the processed action to be sent into maniskill env
-        print('Making prediction with model')
         raw_action, action = model.step(image, depth, task_description)
         predicted_actions.append(raw_action)
         predicted_terminated = bool(action["terminate_episode"][0] > 0)
