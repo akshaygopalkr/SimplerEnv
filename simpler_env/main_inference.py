@@ -13,11 +13,11 @@ from Depth_Anything_V2.metric_depth.depth_anything_v2.dpt import DepthAnythingV2
 import torch
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-try:
-    from simpler_env.policies.octo.octo_model import OctoInference
-except ImportError as e:
-    print("Octo is not correctly imported.")
-    print(e)
+# try:
+#     from simpler_env.policies.octo.octo_model import OctoInference
+# except ImportError as e:
+#     print("Octo is not correctly imported.")
+#     print(e)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 FROM lingzhan/openvla
+ENV NVIDIA_DRIVER_CAPABILITIES=all
 RUN apt-get install --no-install-recommends -y libvulkan1 libglvnd-dev
 
 # Vulkan issues
@@ -24,7 +25,7 @@ RUN cd /root/openvla && git remote set-url origin git@github.com:lz1oceani/openv
 RUN cd /root/ && git clone git@github.com:akshaygopalkr/SimplerEnv.git --recurse-submodules
 RUN pip uninstall -y transformers && pip install transformers==4.40.1
 RUN pip uninstall -y flash-attn
-RUN pip install "flash-attn==2.5.5" --no-build-isolation
+RUN pip install flash-attn -U
 RUN pip install mediapy==1.2.0
 RUN pip install git+https://github.com/nathanrooy/simulated-annealing
 RUN cd /root/SimplerEnv && ln -s /ariesdv0/zhanling/simpler_env_results ./results

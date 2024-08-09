@@ -13,6 +13,8 @@ def build_maniskill2_env(env_name, **kwargs):
                 kwargs["rgb_overlay_cameras"] = ["3rd_view_camera"]
             else:
                 raise NotImplementedError()
+
+    print(kwargs)
     env = gym.make(env_name, **kwargs)
 
     return env
