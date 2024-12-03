@@ -2,7 +2,7 @@ from collections import defaultdict
 from typing import Optional, Sequence
 from typing import Any, Callable, ClassVar, Dict, List, Optional, Tuple, Union
 
-from prismatic import load, load_vla
+from prismatic import load_vla
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -52,6 +52,8 @@ class OPENVLAInference:
             self.policy = load_vla(self.model_id, hf_token).to(f"cuda:{device_id}")
         
         device = torch.device("cuda:1") 
+        self.unnorm_key = list(self.policy.norm_stats.keys())[0]
+        print(self.unnorm_key)
 
         # Load a pretrained VLM (either local path, or ID to auto-download from the HF Hub) ```
         self.vlm = self.policy
@@ -378,7 +380,7 @@ class OPENVLAInference:
         self.observation["image"] = image
         self.observation["natural_language_embedding"] = self.task_description_embedding
         
-        _actions = self.policy.predict_action(Image.fromarray(image), task_description, unnorm_key="fractal20220817_aug_data", do_sample=False)
+        _actions = self.policy.predict_action(Image.fromarray(image), task_description, unnorm_key=self.unnorm_key, do_sample=False)
         
         #a= self.save_features(**inputs)
         raw_action = {
