@@ -26,4 +26,6 @@ dist/
 # VSCode editor settings
 .vscode
 
+/results
+
 imgui.ini

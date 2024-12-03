@@ -55,7 +55,7 @@ def get_args():
         nargs=3,
         default=[0.35, 0.35, 1],
         help="[xmin, xmax, num]",
-    )
+    ) 
     parser.add_argument(
         "--robot-init-y-range",
         type=float,
@@ -111,7 +111,7 @@ def get_args():
         "is allowed.",
     )
     parser.add_argument("--logging-dir", type=str, default="./results")
-    parser.add_argument("--tf-memory-limit", type=int, default=3072, help="Tensorflow memory limit")
+    parser.add_argument("--tf-memory-limit", type=int, default=3072 * 4, help="Tensorflow memory limit")
     parser.add_argument("--octo-init-rng", type=int, default=0, help="Octo init rng seed")
 
     args = parser.parse_args()
