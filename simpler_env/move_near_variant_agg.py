@@ -27,7 +27,7 @@ env_scene_names = [
     ("MoveNearAltGoogleCamera2InScene-v0", "google_pick_coke_can_1_v4"),
 ]
 
-def run_eval_loop(args, model, depth_model=None):
+def run_eval_loop(args, model):
     
     success_arr = []
     for env_tuple in env_scene_names:

@@ -29,7 +29,7 @@ coke_can_options_arr = [
 ]
 
 
-def run_eval_loop(args, model, depth_model=None):
+def run_eval_loop(args, model):
     success_arr = []
     
     for urdf_version in urdf_versions:
@@ -59,7 +59,7 @@ def run_eval_loop(args, model, depth_model=None):
                 else:
                     env_args.additional_env_save_tags = env_args.additional_env_save_tags + f"_obs_camera_{env_args.obs_camera_name}"
         
-            success = maniskill2_evaluator(model, env_args, depth_model=depth_model)
+            success = maniskill2_evaluator(model, env_args)
             success_arr.append(success)
 
 

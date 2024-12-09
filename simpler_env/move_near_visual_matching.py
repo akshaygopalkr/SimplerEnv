@@ -15,7 +15,7 @@ def parse_range_tuple(t):
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 urdf_versions = ["recolor_cabinet_visual_matching_1", "recolor_tabletop_visual_matching_1", "recolor_tabletop_visual_matching_2", "None"]
-def run_eval_loop(args, model, depth_model=None):
+def run_eval_loop(args, model):
     
     success_arr = []
     args.additional_env_build_kwargs = {}
@@ -62,6 +62,7 @@ if __name__ == "__main__":
             [tf.config.LogicalDeviceConfiguration(memory_limit=args.tf_memory_limit)],
         )
     if "openvla" in args.policy_model:
+        print(args.ckpt_path)
         model = OPENVLAInference(model_id_or_path=args.ckpt_path,
                                  policy_setup=args.policy_setup)
         print('Done loading model...')

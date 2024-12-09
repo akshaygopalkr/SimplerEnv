@@ -36,7 +36,6 @@ class OPENVLAInference:
         self.input_processor = AutoProcessor.from_pretrained("openvla/openvla-7b", trust_remote_code=True)
         device_id = 1
         self.device_id = device_id
-        print("########################", self.model_id)
         
         if not self.model_id or self.model_id == "None":
             
@@ -47,11 +46,9 @@ class OPENVLAInference:
                 low_cpu_mem_usage=True,
                 trust_remote_code=True
             ).to(f'cuda:{device_id}')
-            print('model loaded')
         else:
             self.policy = load_vla(self.model_id, hf_token).to(f"cuda:{device_id}")
         
-        device = torch.device("cuda:1") 
         self.unnorm_key = list(self.policy.norm_stats.keys())[0]
         print(self.unnorm_key)
 
